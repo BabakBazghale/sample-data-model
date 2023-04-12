@@ -1,0 +1,1 @@
+![alt text](https://github.com/BabakBazghale/sample-data-model/blob/main/data-model.png?raw=true)
