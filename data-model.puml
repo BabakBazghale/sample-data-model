@@ -1,0 +1,73 @@
+@startuml
+class com.bob.projects.sampledatamodel.model.entity.ProductDetail {
+~ Product product
+~ Long weight
+~ Long height
+~ Long color
+}
+class com.bob.projects.sampledatamodel.model.entity.BaseEntity {
+~ Long id
+~ String code
+}
+class com.bob.projects.sampledatamodel.model.entity.BaseAuditLog {
+~ ZonedDateTime registrationDate
+~ ZonedDateTime deletionDate
+~ String deletedBy
+~ boolean isDeleted
+}
+enum com.bob.projects.sampledatamodel.model.enumeration.ProductCategoryEnum {
++  ELECTRONIC_DEVICES
++  HEALTH_AND_BEAUTY
++  ACCESSORIES
++  STYLE_AND_FASHION
++  HOME_AND_GARDEN
++  CHILDREN_AND_INFANTS
++  PET_AND_PET_SUPPLIES
+}
+class com.bob.projects.sampledatamodel.model.entity.Seller {
+~ String name
+~ String username
+~ String businessField
+~ Integer rate
+~ String companyIdentifier
+~ String companyAddress
+~ String ceoNationalCode
+~ boolean isActive
+~ boolean isPremium
+~ ZonedDateTime enrollmentDate
+~ Set<Product> products
+}
+class com.bob.projects.sampledatamodel.model.entity.Customer {
+~ String name
+~ String family
+~ String nationalCode
+~ String iban
+~ String username
+~ Product product
+~ Set<Product> products
+}
+class com.bob.projects.sampledatamodel.model.entity.Product {
+~ String name
+~ ProductCategoryEnum category
+~ BigDecimal price
+~ boolean isSold
+~ boolean isActive
+~ Set<Customer> customers
+~ ProductDetail productDetail
+~ Seller seller
+}
+class com.bob.projects.sampledatamodel.SpringBootApplication {
++ {static} void main(String[])
+}
+
+Seller "1" --> "many" Product : contains
+Customer "1" --> "many" Product : contains
+Product "1" --> "many" Customer : contains
+ProductDetail <-- "1" Product
+
+com.bob.projects.sampledatamodel.model.entity.BaseEntity <|-- com.bob.projects.sampledatamodel.model.entity.ProductDetail
+com.bob.projects.sampledatamodel.model.entity.BaseAuditLog <|-- com.bob.projects.sampledatamodel.model.entity.BaseEntity
+com.bob.projects.sampledatamodel.model.entity.BaseEntity <|-- com.bob.projects.sampledatamodel.model.entity.Seller
+com.bob.projects.sampledatamodel.model.entity.BaseEntity <|-- com.bob.projects.sampledatamodel.model.entity.Customer
+com.bob.projects.sampledatamodel.model.entity.BaseEntity <|-- com.bob.projects.sampledatamodel.model.entity.Product
+@enduml
